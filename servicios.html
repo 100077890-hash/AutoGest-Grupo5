@@ -41,6 +41,26 @@
         <section class="seccion">
             <div class="contenedor">
                 <h2>Lista de servicios</h2>
+                <!-- Buscador de servicios -->
+<section class="buscador-servicios">
+
+    <h2>Buscar servicios</h2>
+
+    <input
+        type="text"
+        id="buscador"
+        placeholder="Escribe el nombre del servicio..."
+        autocomplete="off"
+    >
+
+</section>
+<!-- Lista dinámica de servicios -->
+<div id="lista-servicios"></div>
+
+<!-- Mensaje cuando no existen resultados -->
+<p id="sin-resultados" style="display: none;">
+    No se encontraron servicios.
+</p>
 
                 <div class="tarjetas">
                     <article class="tarjeta">
@@ -164,6 +184,8 @@
             <p><a href="index.html">Inicio</a> | <a href="citas.html">Solicitar cita</a></p>
         </div>
     </footer>
+    
+<script src="js/script.js"></script>
 
 </body>
 </html>
