@@ -1,20 +1,31 @@
 <?php
 
-// Configuración de la base de datos de AutoGest
-$host = "localhost";
-$baseDatos = "autogest";
-$usuario = "root";
-$password = "";
+$config = require __DIR__ . "/config.local.php";
+
+$host = $config["host"];
+$baseDatos = $config["database"];
+$usuario = $config["username"];
+$password = $config["password"];
 
 try {
+
     $conexion = new PDO(
         "mysql:host=$host;dbname=$baseDatos;charset=utf8mb4",
         $usuario,
         $password
     );
 
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conexion->setAttribute(
+        PDO::ATTR_ERRMODE,
+        PDO::ERRMODE_EXCEPTION
+    );
+
+    $conexion->setAttribute(
+        PDO::ATTR_DEFAULT_FETCH_MODE,
+        PDO::FETCH_ASSOC
+    );
 
 } catch (PDOException $e) {
-    die("Error de conexión con la base de datos: " . $e->getMessage());
+
+    die("No fue posible conectar con la base de datos.");
 }
