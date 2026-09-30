@@ -1,0 +1,5 @@
+# Configuración local
+config/config.local.php
+
+# Archivos temporales
+*.log

@@ -126,17 +126,49 @@ function limpiarConfirmacion() {
 }
 
 // Interceptar el envío del formulario
-formulario.addEventListener("submit", (evento) => {
+formulario.addEventListener("submit", async (evento) => {
     evento.preventDefault();
 
     limpiarConfirmacion();
 
-    if (validarFormulario()) {
-    const nombre = obtenerCampo("nombre").value;
+    if (!validarFormulario()) {
+        return;
+    }
 
-    formulario.reset();
-    limpiarErrores();
-    mostrarConfirmacion(nombre);
+    const datosFormulario = new FormData(formulario);
+
+    try {
+
+        const respuesta = await fetch("backend/registrar_cita.php", {
+            method: "POST",
+            body: datosFormulario
+        });
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok || !resultado.exito) {
+
+            mensajeExito.textContent =
+                resultado.mensaje || "No fue posible registrar la cita.";
+
+            mensajeExito.style.display = "block";
+
+            return;
+        }
+
+        mostrarConfirmacion(
+            obtenerCampo("nombre").value
+        );
+
+        formulario.reset();
+        limpiarErrores();
+
+    } catch (error) {
+
+        mensajeExito.textContent =
+            "No fue posible conectar con el servidor.";
+
+        mensajeExito.style.display = "block";
     }
 });
 
