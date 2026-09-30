@@ -94,4 +94,5 @@ INSERT INTO servicios (nombre, descripcion, precio) VALUES
 ('Cambio de frenos', 'Revisión y mantenimiento del sistema de frenos', 4000.00),
 ('Alineación y balanceo', 'Corrección de alineación y balanceo', 2000.00),
 ('Diagnóstico computarizado', 'Evaluación mediante diagnóstico computarizado', 1500.00),
-('Mantenimiento preventivo', 'Revisión general del vehículo', 3500.00);
+('Mantenimiento preventivo', 'Revisión general del vehículo', 3500.00),
+('Reparación del sistema de suspensión', 'Revisión y reparación del sistema de suspensión', 0.00);
