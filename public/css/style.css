@@ -630,6 +630,7 @@ legend span {
 }
 
 .tabla-contenedor {
+    position: relative;
     overflow-x: auto;
     border: 1px solid #dfe4ea;
     border-radius: 10px;
