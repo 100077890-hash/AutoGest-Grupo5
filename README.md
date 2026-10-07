@@ -5,7 +5,7 @@ Sistema web de gestión para un taller automotriz. Permite consultar servicios, 
 ## Tecnologías y requisitos
 
 - Laravel **13.35.0**, Blade y Eloquent; dependencias fijadas en `composer.lock`.
-- PHP **8.3 o superior**, dentro de las versiones admitidas por Laravel 13 (8.3–8.5). Entorno verificado: **PHP 8.5.11**.
+- PHP **8.4.1 o superior**, dentro de las versiones 8.4–8.5 admitidas por las dependencias fijadas. Laravel 13 tiene un mínimo base de 8.3, pero el `composer.lock` de esta entrega utiliza Symfony 8.1, que requiere 8.4.1. Entorno verificado: **PHP 8.5.11**.
 - Composer 2; verificado con **2.10.3**.
 - MySQL **8.4.11**, utilizado para la ejecución y las pruebas de integración. El esquema utiliza operaciones convencionales de MySQL/MariaDB; MariaDB no fue probado.
 - Extensiones PHP: PDO, `pdo_mysql`, mbstring, openssl, tokenizer, xml, ctype, fileinfo, curl, dom y session. `pdo_sqlite` para la suite predeterminada.
