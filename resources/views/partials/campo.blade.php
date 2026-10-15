@@ -1,6 +1,9 @@
 @php
     $displayValue = old($name, $value ?? '');
     $displayValue = is_scalar($displayValue) ? $displayValue : '';
+    $descripciones = [];
+    if (isset($help)) $descripciones[] = 'ayuda-'.$name;
+    if ($errors->has($name)) $descripciones[] = 'error-'.$name;
 @endphp
 <div class="grupo-campo">
     <label for="{{ $name }}">{{ $label }}@if($required ?? true)<span aria-hidden="true"> *</span>@endif</label>
@@ -10,6 +13,9 @@
         @isset($min) min="{{ $min }}" @endisset
         @isset($maximum) max="{{ $maximum }}" @endisset
         @isset($autocomplete) autocomplete="{{ $autocomplete }}" @endisset
-        @error($name) aria-invalid="true" aria-describedby="error-{{ $name }}" @enderror>
+        @isset($autocapitalize) autocapitalize="{{ $autocapitalize }}" @endisset
+        @if($descripciones) aria-describedby="{{ implode(' ', $descripciones) }}" @endif
+        @error($name) aria-invalid="true" @enderror>
+    @isset($help)<p class="ayuda-campo" id="ayuda-{{ $name }}">{{ $help }}</p>@endisset
     @error($name)<p class="error-campo" id="error-{{ $name }}">{{ $message }}</p>@enderror
 </div>

@@ -21,14 +21,14 @@
 <p>Si ya eres cliente, utiliza los mismos datos registrados. Para modificarlos, contacta al taller.</p>
 <a href="{{ route('servicios') }}">Consultar los servicios →</a>
 </aside>
-<form class="panel" method="POST" action="{{ route('citas.store') }}">@csrf
+<form class="panel" data-submit-form method="POST" action="{{ route('citas.store') }}">@csrf
 <fieldset>
 <legend>
 <span>01</span> Datos del cliente</legend>
 <div class="campos">
 @include('partials.campo', ['name' => 'nombre', 'label' => 'Nombre', 'max' => 50, 'autocomplete' => 'given-name'])
 @include('partials.campo', ['name' => 'apellido', 'label' => 'Apellido', 'max' => 50, 'autocomplete' => 'family-name'])
-@include('partials.campo', ['name' => 'telefono', 'label' => 'Teléfono', 'type' => 'tel', 'max' => 20, 'autocomplete' => 'tel'])
+@include('partials.campo', ['name' => 'telefono', 'label' => 'Teléfono', 'type' => 'tel', 'max' => 20, 'autocomplete' => 'tel', 'help' => 'Ej.: 809-555-0100. Entre 7 y 15 dígitos.'])
 @include('partials.campo', ['name' => 'correo', 'label' => 'Correo electrónico', 'type' => 'email', 'max' => 100, 'autocomplete' => 'email'])
 </div>
 </fieldset>
@@ -39,7 +39,7 @@
 @include('partials.campo', ['name' => 'marca', 'label' => 'Marca', 'max' => 50])
 @include('partials.campo', ['name' => 'modelo', 'label' => 'Modelo', 'max' => 50])
 @include('partials.campo', ['name' => 'anio', 'label' => 'Año', 'type' => 'number', 'min' => 1900, 'maximum' => now()->year])
-@include('partials.campo', ['name' => 'placa', 'label' => 'Placa', 'max' => 20])
+@include('partials.campo', ['name' => 'placa', 'label' => 'Placa', 'max' => 20, 'autocapitalize' => 'characters', 'help' => 'Letras, números y guiones. Ej.: A123456.'])
 </div>
 </fieldset>
 <fieldset>
@@ -59,8 +59,8 @@
 <textarea id="comentarios" name="comentarios" rows="4" maxlength="2000" @error('comentarios') aria-invalid="true" aria-describedby="error-comentarios" @enderror>{{ is_string(old('comentarios')) ? old('comentarios') : '' }}</textarea>@error('comentarios')<p class="error-campo" id="error-comentarios">{{ $message }}</p>@enderror</div>
 </fieldset>
 <div class="acciones">
-<button class="boton" type="submit" @disabled($servicios->isEmpty())>Registrar cita</button>
-<button class="boton secundario" type="reset">Limpiar formulario</button>
+<button class="boton" type="submit" data-loading-text="Registrando cita…" @disabled($servicios->isEmpty())>Registrar cita</button>
+<button class="boton secundario" type="reset">Restablecer campos</button>
 </div>
 <p class="nota">La solicitud quedará registrada. El taller coordinará la atención.</p>
 </form>

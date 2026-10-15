@@ -19,7 +19,8 @@
 <h2>Próximas citas</h2>
 <a href="{{ route('citas.create') }}">Registrar cita →</a>
 </div>
-<div class="tabla-contenedor">
+<p class="tabla-ayuda">Desliza la tabla o utiliza las flechas del teclado para ver todas las columnas.</p>
+<div class="tabla-contenedor" role="region" aria-label="Próximas citas, tabla con desplazamiento horizontal" tabindex="0">
 <table>
 <caption>Hasta ocho próximas citas registradas</caption>
 <thead>

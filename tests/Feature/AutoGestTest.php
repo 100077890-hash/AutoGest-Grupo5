@@ -50,6 +50,21 @@ class AutoGestTest extends TestCase
         $this->get('/servicios.html')->assertRedirect('/servicios');
         $this->get('/citas.html')->assertRedirect('/citas');
         $this->get('/index.html')->assertRedirect('/');
+        $servicio = Servicio::where('nombre', 'Alineación y balanceo')->firstOrFail();
+        $this->get('/citas?servicio='.$servicio->id_servicio)
+            ->assertOk()->assertSee('value="'.$servicio->id_servicio.'" selected', false);
+    }
+
+    public function test_servicio_elegido_se_conserva_al_corregir_una_cita(): void
+    {
+        $servicio = Servicio::where('nombre', 'Alineación y balanceo')->firstOrFail();
+        $this->from('/citas')->post('/citas', $this->citaData(['id_servicio' => $servicio->id_servicio, 'telefono' => 'abc']))
+            ->assertSessionHasErrors('telefono');
+        // Simular la cookie del navegador al seguir la redirección con errores en sesión.
+        $this->withCookie(config('session.cookie'), session()->getId())->get('/citas')->assertOk()
+            ->assertSee('value="'.$servicio->id_servicio.'" selected', false)
+            ->assertSee('href="#telefono"', false)
+            ->assertSee('aria-describedby="ayuda-telefono error-telefono"', false);
     }
 
     public function test_rutas_privadas_protegidas_y_binding(): void
@@ -117,6 +132,9 @@ class AutoGestTest extends TestCase
         $demo = Cliente::where('correo', 'cliente@example.com')->firstOrFail();
         $this->actingAs($this->usuario())->from('/admin/clientes')->delete('/admin/clientes/'.$demo->id_cliente)->assertSessionHas('error');
         $this->assertDatabaseCount('clientes', 1);
+        $this->get('/admin/clientes?eliminar='.$demo->id_cliente)
+            ->assertSee('tiene citas relacionadas y no puede eliminarse.')
+            ->assertDontSee('Confirmar eliminación');
         $cliente = Cliente::create($this->clienteData());
         Vehiculo::create(['id_cliente' => $cliente->id_cliente, 'marca' => 'Honda', 'modelo' => 'Civic', 'anio' => 2020, 'placa' => 'DELETE-001']);
         $this->get('/admin/clientes?eliminar='.$cliente->id_cliente)->assertSee('Confirmar eliminación');

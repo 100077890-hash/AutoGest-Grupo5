@@ -14,7 +14,8 @@
 <h2>Servicios disponibles</h2>
 <div class="buscador" hidden data-buscador>
 <label for="buscar">Buscar servicios</label>
-<input id="buscar" type="search" placeholder="Nombre del servicio" autocomplete="off">
+<input aria-controls="lista-servicios" id="buscar" type="search" placeholder="Nombre del servicio" autocomplete="off">
+<p class="ayuda-campo" id="resultado-busqueda" role="status" hidden></p>
 </div>
 </div>
 <div class="tarjetas" id="lista-servicios">
@@ -27,7 +28,7 @@
 <h3>{{ $servicio->nombre }}</h3>
 <p>{{ $servicio->descripcion }}</p>
 <p class="precio">{{ $servicio->precio > 0 ? 'RD$ '.number_format($servicio->precio, 2) : 'Precio a consultar' }}</p>
-<a href="{{ route('citas.create', ['servicio' => $servicio->id_servicio]) }}">Solicitar este servicio →</a>
+<a aria-label="Solicitar cita para {{ $servicio->nombre }}" href="{{ route('citas.create', ['servicio' => $servicio->id_servicio]) }}">Solicitar este servicio →</a>
 </div>
     </article>
 @endforeach
