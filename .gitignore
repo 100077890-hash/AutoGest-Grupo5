@@ -1,5 +1,24 @@
-# Configuración local
-config/config.local.php
-
-# Archivos temporales
+/.env
+/.env.*
+!/.env.example
+/vendor/
+/node_modules/
+/public/storage
+/public/hot
+/bootstrap/cache/*.php
+/storage/**/*.key
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/framework/cache/**
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/database/*.sqlite*
+/.phpunit.cache/
+/.phpunit.result.cache
+/.idea/
+/.vscode/
+.DS_Store
 *.log
+/config/config.local.php
